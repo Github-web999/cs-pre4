@@ -1,19 +1,55 @@
-students = [
-    {"id": 1,"name": "Lam", "toan": 6, "van": 7, "hoa": 10},
-    {"id": 2,"name": "Hieu", "toan": 7, "van": 9, "hoa": 9},
-    {"id": 3,"name": "Hung", "toan": 8, "van": 5, "hoa": 1},
-    {"id": 4,"name": "Truc", "toan": 9, "van": 7, "hoa": 4},
-    {"id": 5,"name": "Duong", "toan": 10, "van": 10, "hoa": 10},
-]
-for student in students:
-    student["average"] = (student["toan"] + student["van"] + student["hoa"]) / 3
-    
-print("Sinh vien co diem trung binh 5:")
-for student in students:
-    if student["average"] > 5: print(student["name"], student["average"])
-    
-print("")
+class SinhVien:
+    def __init__(self, maSV, tenSV, diemToan, diemVan, diemHoa):
+        self.maSV = maSV
+        self.tenSV = tenSV
+        self.diemToan = diemToan
+        self.diemVan = diemVan
+        self.diemHoa = diemHoa
 
-print("Sinh vien co diem hoa duoi 5:")
-for student in students:
-    if student["hoa"] < 5: print(student["name"], student["hoa"])
+    def tinh_diem_trung_binh(self):
+        return (self.diemToan + self.diemVan + self.diemHoa) / 3
+
+    def xep_loai(self):
+        dtb = self.tinh_diem_trung_binh()
+        if dtb >= 8:
+            return "Giỏi"
+        elif dtb >= 6.5:
+            return "Khá"
+        elif dtb >= 5:
+            return "Trung bình"
+        else:
+            return "Yếu"
+
+def in_thong_tin_sinh_vien(sinh_vien):
+    print(f"Mã sinh viên: {sinh_vien.maSV}")
+    print(f"Tên sinh viên: {sinh_vien.tenSV}")
+    print(f"Điểm Toán: {sinh_vien.diemToan}")
+    print(f"Điểm Văn: {sinh_vien.diemVan}")
+    print(f"Điểm Hóa: {sinh_vien.diemHoa}")
+    print(f"Điểm trung bình: {sinh_vien.tinh_diem_trung_binh()}")
+    print(f"Xếp loại: {sinh_vien.xep_loai()}")
+    print("------------------------")
+
+#ds sv
+danh_sach_sinh_vien = [
+    SinhVien("SV001", " A", 8, 7, 9),
+    SinhVien("SV002", " B", 6, 5, 4),
+    SinhVien("SV003", " C", 9, 8, 7),
+    SinhVien("SV004", " D", 5, 6, 5),
+    SinhVien("SV005", " E", 7, 8, 6)
+]
+
+# tt
+print("Danh sách tất cả sinh viên:")
+for sinh_vien in danh_sach_sinh_vien:
+    in_thong_tin_sinh_vien(sinh_vien)
+
+# tb max
+sinh_vien_gioi_nhat = max(danh_sach_sinh_vien, key=lambda x: x.tinh_diem_trung_binh())
+print("\nSinh viên có điểm trung bình cao nhất:")
+in_thong_tin_sinh_vien(sinh_vien_gioi_nhat)
+
+# diemhoa min
+sinh_vien_hoa_thap_nhat = min(danh_sach_sinh_vien, key=lambda x: x.diemHoa)
+print("\nSinh viên có điểm Hóa thấp nhất:")
+in_thong_tin_sinh_vien(sinh_vien_hoa_thap_nhat)
